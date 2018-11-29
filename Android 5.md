@@ -874,7 +874,7 @@ mAuthnHelper.mobileAuth(APP_ID, APP_KEY, mListener);
 1. 本产品属于收费业务，开发者未签订服务合同前，每天总调用次数有限，详情可咨询商务。
 2. 签订合同后，将不在提供每天免费的测试次数。
 
-###4.2.1. 接口说明
+### 4.2.1. 接口说明
 
 请求地址： https://www.cmpassport.com/openapi/rs/tokenValidate
 
@@ -882,7 +882,7 @@ mAuthnHelper.mobileAuth(APP_ID, APP_KEY, mListener);
 
 请求方法： POST+json,Content-type设置为application/json
 
-###4.2.2. 参数说明
+### 4.2.2. 参数说明
 
 **请求参数**
 
@@ -918,7 +918,7 @@ mAuthnHelper.mobileAuth(APP_ID, APP_KEY, mListener);
 | accessToken  | 2     | 否   | 使用短验辅助服务的凭证，当resultCode返回为001时，并且该appid在开发者社区配置了短验辅助功能时返回该参数。accessToken有效时间为5min，一次有效。 |
 | expandParams | 2     | 否   | 扩展参数格式：param1=value1\|param2=value2  方式传递，参数以竖线 \| 间隔方式传递，此参数需urlencode编码。 |
 
-###4.2.3. 示例
+### 4.2.3. 示例
 
 ```
 {
@@ -964,8 +964,8 @@ mAuthnHelper.mobileAuth(APP_ID, APP_KEY, mListener);
 | 105001 | 联通取号失败                                                 |
 | 105002 | 移动取号失败                                                 |
 | 105003 | 电信取号失败                                                 |
-| 105019 | appid不在白名单                                              |
 | 105021 | 已达当天取号限额                                             |
+| 105302 | appid不在白名单                                              |
 | 200005 | 用户未授权（READ_PHONE_STATE）                               |
 | 200010 | 取号请求时获取imsi失败                                       |
 | 200020 | 用户取消登录                                                 |
