@@ -30,12 +30,12 @@ jar包集成方式：
 
 1. 在Eclipse/AS中建立你的工程。 
 2. 将`*.jar`拷贝到工程的libs目录下，如没有该目录，可新建。
-3. 将sdk所需要的资源文件（anim, drawable, drawable-xxhdpi, layout, values文件）从demo工程res-umc目录下的文件添加到项目工程中
+3. 将sdk所需要的资源文件（anim, drawable, drawable-xxhdpi文件）从demo工程res-umc目录下的文件添加到项目工程中
 
 aar包集成方式：
 
 1. 在Eclipse/AS中建立你的工程。 
-2. 将`*.jar`拷贝到工程的libs目录下，如没有该目录，可新建。
+2. 将`*.aar`拷贝到工程的libs目录下，如没有该目录，可新建。
 
 
 **第三步：开始使用移动认证SDK**
@@ -290,7 +290,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 
 | 字段           | 类型   | 含义                                                         |
 | -------------- | ------ | ------------------------------------------------------------ |
-| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见4.1 SDK返回码        |
+| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
 | resultDesc     | String | 失败时返回：返回错误码说明                                   |
 | authType       | String | 认证类型：</br>0:其他；</br>1:WiFi下网关鉴权；</br>2:网关鉴权；</br>3:短信上行鉴权；</br>7:短信验证码登录 |
 | authTypeDec    | String | 认证类型描述，对应authType                                   |
@@ -441,7 +441,7 @@ public AuthnHelper addAuthRegistViewConfig(String viewId,
 
 初始化AuthRegisterViewConfig类时需要先调静态内部类Builder()里面的3个方法：
 
-**setView：**开发者传入自定义的控件，开发者需要提前设置好控件的布局属性，SDK只支持RelativeLayout布局
+**setView：** 开发者传入自定义的控件，开发者需要提前设置好控件的布局属性，SDK只支持RelativeLayout布局
 
 *setView原型：*
 
@@ -451,7 +451,7 @@ public Builder setView(View view)
 
 
 
-**setRootViewId：**设置控件的位置，目前SDK授权页允许在2个位置插入开发者控件
+**setRootViewId：** 设置控件的位置，目前SDK授权页允许在2个位置插入开发者控件
 
 1. RootViewId.ROOT_VIEW_ID_TITLE_BAR，标题栏
 2. RootViewId.ROOT_VIEW_ID_BODY，授权页空白处
@@ -464,7 +464,7 @@ public Builder setRootViewId(int rootViewId)
 
 
 
-**setCustomInterface：**设置控件事件        
+**setCustomInterface：** 设置控件事件        
 
 *setCustomInterface原型：*                                     
 
@@ -654,7 +654,7 @@ public void delScrip()
 
 # 5. 返回码说明
 
-## 4.1. SDK返回码
+## 5.1. SDK返回码
 
 | 返回码 | 返回码描述                                                   |
 | ------ | ------------------------------------------------------------ |
