@@ -297,7 +297,6 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | authType       | String | 认证类型：</br>0:其他；</br>1:WiFi下网关鉴权；</br>2:网关鉴权；</br>3:短信上行鉴权；</br>7:短信验证码登录 |
 | authTypeDec    | String | 认证类型描述，对应authType                                   |
 | token          | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| openId         | String | 成功时返回：用户身份唯一标识                                 |
 | SDKRequestCode | int    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
 **示例代码**
