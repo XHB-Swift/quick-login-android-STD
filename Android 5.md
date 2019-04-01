@@ -2,7 +2,7 @@
 
 sdk技术问题沟通QQ群：609994083</br>
 sdk支持版本：Android4.0以上</br>
-本文档为一键登录SDK5.6.4版本的开发文档</br>
+本文档为一键登录SDK5.6.5版本的开发文档</br>
 
 **注意事项：**
 
@@ -56,13 +56,13 @@ aar包集成方式：
 
 权限说明：
 
-| 权限                 | 说明                                       |
-| -------------------- | ------------------------------------------ |
+| 权限                   | 说明                    |
+| -------------------- | --------------------- |
 | INTERNET             | 允许应用程序联网，用于访问网关和认证服务器 |
-| READ_PHONE_STATE     | 获取imsi用于判断双卡和换卡                 |
-| ACCESS_WIFI_STATE    | 允许程序访问WiFi网络状态信息               |
-| ACCESS_NETWORK_STATE | 获取网络状态，判断是否数据、wifi等         |
-| CHANGE_NETWORK_STATE | 允许程序改变网络连接状态                   |
+| READ_PHONE_STATE     | 获取imsi用于判断双卡和换卡       |
+| ACCESS_WIFI_STATE    | 允许程序访问WiFi网络状态信息      |
+| ACCESS_NETWORK_STATE | 获取网络状态，判断是否数据、wifi等   |
+| CHANGE_NETWORK_STATE | 允许程序改变网络连接状态          |
 
 **[2] 配置授权登录activity**
 
@@ -106,8 +106,8 @@ public static AuthnHelper getInstance(Context context)
 
 **参数说明：**
 
-| 参数    | 类型    | 说明                                               |
-| ------- | ------- | -------------------------------------------------- |
+| 参数      | 类型      | 说明                              |
+| ------- | ------- | ------------------------------- |
 | context | Context | 调用者的上下文环境，其中activity中this即可以代表。 |
 
 **示例代码：**
@@ -182,11 +182,11 @@ public void getPhoneInfo(final String appId,
 
 **参数说明：**
 
-| 参数        | 类型          | 说明                                                         |
-| :---------- | :------------ | :----------------------------------------------------------- |
-| appId       | String        | 应用的AppID                                                  |
-| appkey      | String        | 应用密钥                                                     |
-| expiresIn   | long          | 设置超时时间，单位ms，设置范围2000-8000                      |
+| 参数          | 类型            | 说明                                       |
+| :---------- | :------------ | :--------------------------------------- |
+| appId       | String        | 应用的AppID                                 |
+| appkey      | String        | 应用密钥                                     |
+| expiresIn   | long          | 设置超时时间，单位ms，设置范围2000-8000                |
 | listener    | TokenListener | TokenListener为回调监听器，是一个java接口，需要调用者自己实现；TokenListener是接口中的认证登录token回调接口，OnGetTokenComplete是该接口中唯一的抽象方法，即void OnGetTokenComplete(JSONObject  jsonobj) |
 | requestCode | int           | 请求标识码。与响应参数中的SDKRequestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
@@ -194,10 +194,10 @@ public void getPhoneInfo(final String appId,
 
 OnGetTokenComplete的参数JSONObject，含义如下：
 
-| 字段           | 类型    | 含义                                                         |
-| -------------- | ------- | ------------------------------------------------------------ |
-| resultCode     | int     | 接口返回码，“103000”为成功。具体返回码见5.1 SDK返回码        |
-| desc           | boolean | 成功标识，true为成功。                                       |
+| 字段             | 类型      | 含义                                       |
+| -------------- | ------- | ---------------------------------------- |
+| resultCode     | int     | 接口返回码，“103000”为成功。具体返回码见5.1 SDK返回码       |
+| desc           | boolean | 成功标识，true为成功。                            |
 | SDKRequestCode | int     | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
 **示例代码：**
@@ -245,24 +245,9 @@ public void SMSAuthOn(boolean on)
 
 **参数说明：**
 
-| 字段 | 类型    | 含义                                                       |
-| ---- | ------- | ---------------------------------------------------------- |
-| on   | boolean | true:允许使用短信验证码</br>false（默认）:不使用短信验证码 |
-
-**短信验证使用场景（SMSAuthOn打开前提）：**
-
-一、开发者调用2.5中的loginAuth授权请求方法失败时，自动跳转到短信验证码页面；
-
-二、开发者在授权页面切换，其中
-
-“切换账号”按钮隐藏时，无法在授权页面跳转到短验页面；
-
-“切换账号”按钮显示时，
-
-1. 当SMSAuthOn设置为打开时，点击“切换账号”，跳转到SDK短验
-2. 当SMSAuthOn设置为关闭时，点击“切换账号”，SDK将返回200060返回码，应用根据该返回码自行实现页面的跳转。
-
-![](image/sms_logic.png)
+| 字段        | 类型      | 含义                                       |
+| --------- | ------- | ---------------------------------------- |
+| SMSAuthOn | boolean | true:使用SDK提供的短验服务</br>false（默认）:不使用SDK提供的短验服务，此时如果用户点击“切换账号”，SDK将返回200060返回码 |
 
 ## 2.5. 授权请求
 
@@ -279,10 +264,10 @@ public void loginAuth(final String appId,
 
 **请求参数**
 
-| 参数        | 类型          | 说明                                                         |
-| :---------- | :------------ | :----------------------------------------------------------- |
-| appId       | String        | 应用的AppID                                                  |
-| appkey      | String        | 应用密钥                                                     |
+| 参数          | 类型            | 说明                                       |
+| :---------- | :------------ | :--------------------------------------- |
+| appId       | String        | 应用的AppID                                 |
+| appkey      | String        | 应用密钥                                     |
 | listener    | TokenListener | TokenListener为回调监听器，是一个java接口，需要调用者自己实现；TokenListener是接口中的认证登录token回调接口，OnGetTokenComplete是该接口中唯一的抽象方法，即void OnGetTokenComplete(JSONObject  jsonobj) |
 | requestCode | int           | 请求标识码。与响应参数中的SDKRequestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
@@ -290,12 +275,12 @@ public void loginAuth(final String appId,
 
 OnGetTokenComplete的参数JSONObject，含义如下：
 
-| 字段           | 类型   | 含义                                                         |
-| -------------- | ------ | ------------------------------------------------------------ |
-| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
-| resultDesc     | String | 失败时返回：返回错误码说明                                   |
+| 字段             | 类型     | 含义                                       |
+| -------------- | ------ | ---------------------------------------- |
+| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码       |
+| resultDesc     | String | 失败时返回：返回错误码说明                            |
 | authType       | String | 认证类型：</br>0:其他；</br>1:WiFi下网关鉴权；</br>2:网关鉴权；</br>3:短信上行鉴权；</br>7:短信验证码登录 |
-| authTypeDec    | String | 认证类型描述，对应authType                                   |
+| authTypeDec    | String | 认证类型描述，对应authType                        |
 | token          | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 | SDKRequestCode | int    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
@@ -340,7 +325,7 @@ mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener);
 
 **注意：开发者不得通过任何技术手段，将授权页面的隐私栏、品牌露出内容隐藏、覆盖，对于接入移动认证SDK并上线的应用，我方会对上线的应用授权页面做审查，如果有出现未按要求设计授权页面，将关闭应用的认证取号服务。**
 
-### 2.6.2. 修改授权页面主题
+### 2.6.2. 修改页面主题
 
 开发者可以通过`setAuthThemeConfig`方法修改授权页面主题
 
@@ -352,73 +337,102 @@ public void setAuthThemeConfig(authThemeConfig authThemeConfig)
 
 **参数说明**
 
-| 参数            | 类型            | 说明                                                         |
-| :-------------- | :-------------- | :----------------------------------------------------------- |
+| 参数              | 类型              | 说明                                       |
+| :-------------- | :-------------- | :--------------------------------------- |
 | authThemeConfig | authThemeConfig | 主题配置对象，开发者在authThemeConfig.java类中调用对应的方法配置授权页中对应的元素 |
 
 **authThemeConfig.java配置元素说明：**
 
-*授权页导航栏：*
+**授权页导航栏**
 
-| 方法                | 说明                   |
-| ------------------- | ---------------------- |
-| setNavColor         | 设置导航栏颜色         |
-| setNavText          | 设置导航栏标题文字     |
-| setNavTextColor     | 设置导航栏标题文字颜色 |
-| setNavReturnImgPath | 设置导航栏返回按钮图标 |
+| 方法                 | 说明          |
+| ------------------ | ----------- |
+| navColor           | 设置导航栏颜色     |
+| navText            | 设置导航栏标题文字   |
+| navTextColor       | 设置导航栏标题文字颜色 |
+| navReturnImgPath   | 设置导航栏返回按钮图标 |
+| authNavTransparent | 设置授权页导航栏透明  |
 
-*授权页logo（logo的层级在次底层，仅次于自定义控件）*
+**授权页背景**
 
-| 方法             | 说明                            |
-| ---------------- | ------------------------------- |
-| setLogoImgPath   | 设置logo图片                    |
-| setLogoWidthDip  | 设置logo宽度                    |
-| setLogoHeightDip | 设置logo高度                    |
-| setLogoOffsetY   | 设置logo相对于标题栏下边缘y偏移 |
-| setLogoHidden    | 隐藏logo                        |
+| 方法            | 说明        |
+| ------------- | --------- |
+| authBGImgPath | 设置授权页背景图片 |
 
-*授权页号码栏：*
 
-| 方法               | 说明                              |
-| ------------------ | --------------------------------- |
-| setNumberColor     | 设置手机号码字体颜色              |
-| setNumFieldOffsetY | 设置号码栏相对于标题栏下边缘y偏移 |
 
-*授权页登录按钮：*
+**授权页logo**
 
-| 方法               | 说明                                |
-| ------------------ | ----------------------------------- |
-| setLogBtnText      | 设置登录按钮文字                    |
-| setLogBtnTextColor | 设置登录按钮文字颜色                |
-| setLogBtnImgPath   | 设置授权登录按钮图片                |
-| setLogBtnOffsetY   | 设置登录按钮相对于标题栏下边缘y偏移 |
+| 方法            | 说明                 |
+| ------------- | ------------------ |
+| logoImgPath   | 设置logo图片           |
+| logoWidthDip  | 设置logo宽度           |
+| logoHeightDip | 设置logo高度           |
+| logoHidden    | 隐藏logo             |
+| logoOffsetY   | 设置logo相对于标题栏下边缘y偏移 |
+| logoOffsetY_B | 设置logo相对于底部y偏移     |
 
-*授权页隐私栏：*
+**授权页号码栏**
 
-| 方法                | 说明                                             |
-| ------------------- | ------------------------------------------------ |
-| setClauseOne        | 设置开发者隐私条款1名称和URL(名称，url)          |
-| setClauseTwo        | 设置开发者隐私条款2名称和URL(名称，url)          |
-| setClauseColor      | 设置隐私条款名称颜色(基础文字颜色，协议文字颜色) |
-| setUncheckedImgPath | 设置复选框未选中时图片                           |
-| setCheckedImgPath   | 设置复选框选中时图片                             |
-| setPrivacyOffsetY   | 设置隐私条款相对于授权页面底部下边缘y偏移        |
+| 方法                | 说明                |
+| ----------------- | ----------------- |
+| numberColor       | 设置手机号码字体颜色        |
+| numberSize        | 设置号码栏字体大小         |
+| numFieldOffsetY   | 设置号码栏相对于标题栏下边缘y偏移 |
+| numFieldOffsetY_B | 设置号码栏相对于底部y偏移     |
 
-*授权页slogan：*
+**授权页登录按钮**
 
-| 方法               | 说明                              |
-| ------------------ | --------------------------------- |
-| setSloganTextColor | 设置移动slogan文字颜色            |
-| setSloganOffsetY   | 设置slogan相对于标题栏下边缘y偏移 |
+| 方法              | 说明                 |
+| --------------- | ------------------ |
+| logBtnText      | 设置登录按钮文字           |
+| logBtnTextColor | 设置登录按钮文字颜色         |
+| logBtnImgPath   | 设置授权登录按钮图片         |
+| logBtnOffsetY   | 设置登录按钮相对于标题栏下边缘y偏移 |
+| logBtnOffsetY_B | 设置登录按钮相对于底部y偏移     |
 
-*短验页：*
+**切换账号**
 
-| 方法                  | 说明                       |
-| --------------------- | -------------------------- |
-| setSmsNavText         | 设置短验页的导航栏标题文字 |
-| setSmsLogBtnText      | 设置短验页的按钮文字       |
-| setSmsLogBtnColor     | 设置短验页的按钮颜色       |
-| setSmsLogBtnTextColor | 设置短验页的按钮文字颜色   |
+| 方法                 | 说明                 |
+| ------------------ | ------------------ |
+| switchAccTextColor | 设置切换账号字体颜色         |
+| switchAccHidden    | 隐藏“切换账号”           |
+| switchOffsetY      | 设置切换账号相对于标题栏下边缘y偏移 |
+| switchOffsetY_B    | 设置切换账号相对于底部y偏移     |
+
+**授权页隐私栏**
+
+| 方法               | 说明                        |
+| ---------------- | ------------------------- |
+| clauseOne        | 设置开发者隐私条款1名称和URL(名称，url)  |
+| clauseTwo        | 设置开发者隐私条款2名称和URL(名称，url)  |
+| clauseColor      | 设置隐私条款名称颜色(基础文字颜色，协议文字颜色) |
+| uncheckedImgPath | 设置复选框未选中时图片               |
+| checkedImgPath   | 设置复选框选中时图片                |
+| privacyOffsetY   | 设置隐私条款相对于标题栏下边缘y偏移        |
+| privacyOffsetY_B | 设置隐私条款相对于底部y偏移            |
+
+**授权页slogan**
+
+| 方法              | 说明                   |
+| --------------- | -------------------- |
+| sloganTextColor | 设置移动slogan文字颜色       |
+| sloganOffsetY   | 设置slogan相对于标题栏下边缘y偏移 |
+| sloganOffsetY_B | 设置slogan相对于底部y偏移     |
+
+**短验页**
+
+| 方法                  | 说明               |
+| ------------------- | ---------------- |
+| smsNavTransparent   | 设置短验页导航栏隐藏       |
+| smsNavText          | 设置短验页的导航栏标题文字    |
+| smsLogBtnText       | 设置短验页的登录按钮文字     |
+| smsLogBtnImgPath    | 设置短验登录按钮图片       |
+| smsLogBtnTextColor  | 设置短验页的按钮文字颜色     |
+| smsBGImgPath        | 设置短验页背景图片        |
+| smsCodeImgPath      | 设置短验页获取验证码按钮背景图片 |
+| smsCodeBtnTextColor | 设置短验页获取验证码按钮文字颜色 |
+| smsSloganTextColor  | 设置短验页slogan文字颜色  |
 
 ### 2.6.3. 开发者自定义控件
 
@@ -435,10 +449,10 @@ public AuthnHelper addAuthRegistViewConfig(String viewId,
 
 **参数说明**
 
-| 参数                    | 类型                   | 说明                                                         |
-| :---------------------- | :--------------------- | :----------------------------------------------------------- |
-| viewId                  | String                 | 开发者自定义控件名称，如果需要自行通过该控件finish授权页面，名称后缀必须添加umcskd_authority_finish，如title_button_umcskd_authority_finish |
-| mAuthRegisterViewConfig | AuthRegisterViewConfig | 配置开发者自定义控件的控件来源、位置和处理逻辑等             |
+| 参数                      | 类型                     | 说明                       |
+| :---------------------- | :--------------------- | :----------------------- |
+| viewId                  | String                 | 开发者自定义控件名称               |
+| mAuthRegisterViewConfig | AuthRegisterViewConfig | 配置开发者自定义控件的控件来源、位置和处理逻辑等 |
 
 初始化AuthRegisterViewConfig类时需要先调静态内部类Builder()里面的3个方法：
 
@@ -473,25 +487,7 @@ public Builder setRootViewId(int rootViewId)
 public Builder setCustomInterface(CustomInterface customInterface)
 ```
 
-**示例1（会finish授权页）：**
 
-```java
-//开发者自定义控件，mTitleBtn
-private Button myTitleBtn = new Button(getContext());
-mAuthnHelper.addAuthRegistViewConfig("title_button_umcskd_authority_finish", new AuthRegisterViewConfig.Builder()
-        .setView(myTitleBtn)
-        .setRootViewId(AuthRegisterViewConfig.RootViewId.ROOT_VIEW_ID_TITLE_BAR)
-        .setCustomInterface(new CustomInterface() {
-            @Override
-            public void onClick(Context context) {
-                Toast.makeText(context, "动态注册的按钮", Toast.LENGTH_SHORT).show();
-            }
-        })
-        .build()
-);
-```
-
-**示例2：**
 
 ```java
 //开发者自定义控件，myThirdLoginView
@@ -511,12 +507,27 @@ mAuthnHelper.addAuthRegistViewConfig("layout_third_login", new AuthRegisterViewC
 
 ### 2.6.4. finish授权页
 
-SDK允许开发者在授权页面通过自定义控件finish授权页面
+SDK完成回调后，不会立即关闭授权页面，需要开发者主动调用离开授权页面方法去完成页面的关闭
 
-具体实现方法：
+方法原型
 
-1. 在调用addAuthRegistViewConfig方法时，viewId参数的命名必须包含"umcskd_authority_finish"如"title_button_umcskd_authority_finish"
-2. 开发者在处理完自定义的控件事件后，SDK将自动finish授权页面
+```java
+public void quitAuthActivity(){} 
+```
+
+
+
+### 2.6.5. finish短验页
+
+SDK完成回调后，不会立即关闭短验页面，需要开发者主动调用离开授权页面方法去完成页面的关闭
+
+方法原型
+
+```java
+public void quitSmsActivity(){}
+```
+
+
 
 ## 2.7. 获取手机号码（服务端）
 
@@ -562,10 +573,10 @@ public void mobileAuth(final String appId,
 
 **请求参数说明：**
 
-| 参数        | 类型          | 说明                                                         |
-| :---------- | :------------ | :----------------------------------------------------------- |
-| appId       | String        | 应用的AppID                                                  |
-| appkey      | String        | 应用密钥                                                     |
+| 参数          | 类型            | 说明                                       |
+| :---------- | :------------ | :--------------------------------------- |
+| appId       | String        | 应用的AppID                                 |
+| appkey      | String        | 应用密钥                                     |
 | listener    | TokenListener | TokenListener为回调监听器，是一个java接口，需要调用者自己实现；TokenListener是接口中的认证登录token回调接口，OnGetTokenComplete是该接口中唯一的抽象方法，即void OnGetTokenComplete(JSONObject  jsonobj) |
 | requestCode | int           | 请求标识码。与响应参数中的SDKRequestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
@@ -573,11 +584,11 @@ public void mobileAuth(final String appId,
 
 OnGetTokenComplete的参数JSONObject，含义如下：
 
-| 字段           | 类型   | 含义                                                         |
-| -------------- | ------ | ------------------------------------------------------------ |
-| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
-| authType       | Int    | 登录类型。                                                   |
-| authTypeDes    | String | 登录类型中文描述。                                           |
+| 字段             | 类型     | 含义                                       |
+| -------------- | ------ | ---------------------------------------- |
+| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码       |
+| authType       | Int    | 登录类型。                                    |
+| authTypeDes    | String | 登录类型中文描述。                                |
 | token          | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 | SDKRequestCode | int    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
@@ -628,16 +639,16 @@ public JSONObject getNetworkType(Context context)
 
 **请求参数**
 
-| 参数    | 类型    | 说明       |
-| ------- | ------- | ---------- |
+| 参数      | 类型      | 说明    |
+| ------- | ------- | ----- |
 | context | Context | 上下文对象 |
 
 **响应参数**
 
 参数JSONObject，含义如下：
 
-| 参数         | 类型   | 说明                                                         |
-| ------------ | ------ | ------------------------------------------------------------ |
+| 参数           | 类型     | 说明                                       |
+| ------------ | ------ | ---------------------------------------- |
 | operatorType | String | 运营商类型：</br>1.移动流量；</br>2.联通流量；</br>3.电信流量 |
 | networkType  | String | 网络类型：</br>0.未知；</br>1.流量；</br>2.wifi；</br>3.数据流量+wifi |
 
@@ -657,47 +668,49 @@ public void delScrip()
 
 ## 5.1. SDK返回码
 
-| 返回码 | 返回码描述                                                   |
-| ------ | ------------------------------------------------------------ |
-| 103000 | 成功                                                         |
-| 102102 | 网络异常                                                     |
-| 102507 | 登录超时（授权页点登录按钮时）                               |
-| 103101 | 签名错误                                                   |
-| 103102 | 包签名错误                                                   |
-| 103108 | 短信验证码错误                                               |
-| 103109 | 短信验证码校验超时                                           |
-| 103111 | 网关IP错误（运营商误判）                                     |
-| 103119 | appid不存在                                                  |
-| 103125 | 短验下发时，手机号填写格式错误                               |
-| 103203 | 缓存失效                                                     |
-| 103211 | 其他错误，（如有需要请联系qq群609994083内的移动认证开发）       |
-| 103901 | 短验下发次数已达上限（5次/min,10次/day）                     |
-| 103902 | scrip失效                                                    |
+| 返回码    | 返回码描述                                 |
+| :----- | ------------------------------------- |
+| 103000 | 成功                                    |
+| 102102 | 网络异常                                  |
+| 102507 | 登录超时（授权页点登录按钮时）                       |
+| 103101 | 签名错误                                  |
+| 103102 | 包签名错误                                 |
+| 103108 | 短信验证码错误                               |
+| 103109 | 短信验证码校验超时                             |
+| 103111 | 网关IP错误（运营商误判）                         |
+| 103119 | appid不存在                              |
+| 103125 | 短验下发时，手机号填写格式错误                       |
+| 103203 | 缓存失效                                  |
+| 103211 | 其他错误，（如有需要请联系qq群609994083内的移动认证开发）    |
+| 103901 | 短验下发次数已达上限（5次/min,10次/day）            |
+| 103902 | scrip失效                               |
 | 103911 | token请求过于频繁，10分钟内获取token且未使用的数量不超过30个 |
-| 105001 | 联通取号失败                                                 |
-| 105002 | 移动取号失败                                                 |
-| 105003 | 电信取号失败                                                 |
-| 105021 | 已达当天取号限额                                             |
-| 105302 | appid不在白名单                                              |
-| 200005 | 用户未授权（READ_PHONE_STATE）                               |
-| 200010 | 取号请求时获取imsi失败                                       |
-| 200020 | 用户取消登录                                                 |
-| 200021 | 数据解析异常                                                 |
-| 200022 | 无网络状态                                                   |
-| 200023 | 请求超时                                                     |
-| 200024 | 数据网络切换失败                                             |
-| 200025 | 未知错误一般出现在线程捕获异常，请配合异常打印分析           |
-| 200026 | 输入参数错误                                                 |
-| 200027 | 未开启数据网络                                               |
-| 200038 | 电信重定向失败                                               |
-| 200039 | 电信取号接口返回失败                                         |
-| 200040 | UI资源加载异常                                               |
-| 200048 | 授权请求时获取imsi失败                                       |
-| 200050 | EOF异常                                                      |
-| 200060 | 切换账号（未使用SDK短验时返回）                              |
+| 105001 | 联通取号失败                                |
+| 105002 | 移动取号失败                                |
+| 105003 | 电信取号失败                                |
+| 105021 | 已达当天取号限额                              |
+| 105302 | appid不在白名单                            |
+| 200005 | 用户未授权（READ_PHONE_STATE）               |
+| 200010 | 取号请求时获取imsi失败                         |
+| 200020 | 用户取消登录                                |
+| 200021 | 数据解析异常                                |
+| 200022 | 无网络状态                                 |
+| 200023 | 请求超时                                  |
+| 200024 | 数据网络切换失败                              |
+| 200025 | 未知错误一般出现在线程捕获异常，请配合异常打印分析             |
+| 200026 | 输入参数错误                                |
+| 200027 | 未开启数据网络                               |
+| 200038 | 电信重定向失败                               |
+| 200039 | 电信取号接口返回失败                            |
+| 200040 | UI资源加载异常                              |
+| 200048 | 授权请求时获取imsi失败                         |
+| 200050 | EOF异常                                 |
+| 200060 | 切换账号（未使用SDK短验时返回）                     |
+| 200068 | 授权登录页点击切换进入短验页面                       |
+| 200070 | 开启WiFi但无SIM卡                          |
+| 200082 | 服务器繁忙，请稍后重试（配置下发关闭SDK的取号，登录，短验的时候提示）  |
 
-
-6.常见问题
+# 6.常见问题
 
 产品简介
 
