@@ -460,7 +460,7 @@ public AuthnHelper addAuthRegistViewConfig(String viewId,
 | viewId                  | String                 | 开发者自定义控件名称               |
 | mAuthRegisterViewConfig | AuthRegisterViewConfig | 配置开发者自定义控件的控件来源、位置和处理逻辑等 |
 
-每次调用loginAuth授权请求之前，都需初始化一次AuthRegisterViewConfig,因为在授权页关闭时都会清空注入进去的AuthRegisterViewConfig,具体实现请见demo工程;
+**每次调用loginAuth授权请求之前，都需初始化一次AuthRegisterViewConfig,因为在授权页关闭时都会清空注入进去的AuthRegisterViewConfig,具体实现请见demo工程**/
 初始化AuthRegisterViewConfig类时需要先调静态内部类Builder()里面的3个方法：
 
 **setView：** 开发者传入自定义的控件，开发者需要提前设置好控件的布局属性，SDK只支持RelativeLayout布局
@@ -511,7 +511,7 @@ mAuthnHelper.addAuthRegistViewConfig("layout_third_login", new AuthRegisterViewC
         .build()
 );
 ```
-获取token成功之后，需把通过setView()注入进去的view置为null。
+**获取token成功之后，需把通过setView()注入进去的view置为null。**
 
 ### 2.6.4. finish授权页
 
