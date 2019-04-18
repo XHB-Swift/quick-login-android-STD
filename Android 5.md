@@ -78,13 +78,6 @@ aar包集成方式：
 </activity>
 <!-- required -->
 <activity
-    android:name="com.cmic.sso.sdk.activity.BufferActivity"
-    android:configChanges="orientation|keyboardHidden|screenSize"
-    android:screenOrientation="unspecified"
-    android:launchMode="singleTop">
-</activity>
-<!-- required -->
-<activity
     android:name="com.cmic.sso.sdk.activity.LoginAuthActivity"
     android:configChanges="orientation|keyboardHidden|screenSize"
     android:screenOrientation="unspecified"
