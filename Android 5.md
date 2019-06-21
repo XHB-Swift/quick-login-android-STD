@@ -368,7 +368,7 @@ public void setAuthThemeConfig(authThemeConfig authThemeConfig)
 | logoWidthDip  | 设置logo宽度                          |
 | logoHeightDip | 设置logo高度                          |
 | logoHidden    | 隐藏logo                              |
-| logoOffsetY   | 设置logo相对于标题栏下边缘y偏移（DP） |
+| logoOffsetY   | 设置logo相对于状态栏下边缘y偏移（DP） |
 | logoOffsetY_B | 设置logo相对于底部y偏移               |
 
 **授权页号码栏**
