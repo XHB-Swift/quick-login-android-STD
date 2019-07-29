@@ -1,8 +1,10 @@
+
+
 # 1. 开发环境配置
 
 sdk技术问题沟通QQ群：609994083</br>
 sdk支持版本：Android4.0以上</br>
-本文档为一键登录SDK5.6.5版本的开发文档</br>
+本文档为一键登录SDK5.6.6版本的开发文档</br>
 
 **注意事项：**
 
@@ -143,7 +145,6 @@ mListener = new TokenListener() {
 ```
 
 <div STYLE="page-break-after: always;"></div>
-
 # 2. 一键登录功能
 
 ## 2.1. 准备工作
@@ -244,7 +245,7 @@ public void SMSAuthOn(boolean on)
 
 ## 2.5. 授权请求
 
-应用调用本方法时，SDK将拉起用户授权页面，用户确认授权后，SDK将返回token给应用客户端。
+应用调用本方法时，SDK将拉起用户授权页面，用户确认授权后，SDK将返回token给应用客户端。可通过返回码200087监听授权页是否成功拉起。
 
 **授权请求方法原型**
 
@@ -304,13 +305,21 @@ mListener = new TokenListener() {
 mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener);
 ```
 
+**授权页面的回调方法**
+
+| 方法名         | 说明                         |
+| -------------- | ---------------------------- |
+| pageInListener | 可以获得授权页面是否成功回调 |
+
+
+
 ## 2.6. 授权页面设计
 
 为了确保用户在登录过程中将手机号码信息授权给开发者使用的知情权，一键登录需要开发者提供授权页登录页面供用户授权确认。开发者在调用授权登录方法前，必须弹出授权页，明确告知用户当前操作会将用户的本机号码信息传递给应用。
 
 ### 2.6.1. 页面规范细则
 
-![](image/authPage.png)
+![](image/authUI.png)
 
 ![](image/SMSPage.png)
 
@@ -318,11 +327,13 @@ mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener);
 
 **注意：**
 
-**1、开发者不得通过任何技术手段，破解授权页，或将授权页面的隐私栏、品牌露出内容隐藏、覆盖。**
+**1、开发者不得通过任何技术手段，破解授权页，或将授权页面的号码栏、隐私栏、品牌露出内容隐藏、覆盖。**
 
 **2、登录按钮文字描述必须包含“登录”或“注册”等文字，不得诱导用户授权。**
 
 **3、对于接入移动认证SDK并上线的应用，我方会对上线的应用授权页面做审查，如果有出现未按要求弹出或设计授权页面的，将关闭应用的认证取号服务。**
+
+
 
 ### 2.6.2. 修改页面主题
 
@@ -342,15 +353,20 @@ public void setAuthThemeConfig(authThemeConfig authThemeConfig)
 
 **authThemeConfig.java配置元素说明：**
 
+**状态栏**
+
+| 方法      | 说明                                                         |
+| --------- | ------------------------------------------------------------ |
+| statusBar | 设置状态栏颜色（系统版本5.0以上可设置）、字体颜色（系统版本6.0以上可设置黑色、白色）。 |
+
 **授权页导航栏**
 
-| 方法                 | 说明          |
-| ------------------ | ----------- |
-| navColor           | 设置导航栏颜色     |
-| navText            | 设置导航栏标题文字   |
-| navTextColor       | 设置导航栏标题文字颜色 |
-| navReturnImgPath   | 设置导航栏返回按钮图标 |
-| authNavTransparent | 设置授权页导航栏透明  |
+| 方法               | 说明                                                   |
+| ------------------ | ------------------------------------------------------ |
+| navColor           | 设置导航栏颜色                                         |
+| navText            | 设置导航栏标题文字、字体大小、颜色                     |
+| navReturnImgPath   | 设置导航栏返回按钮图标，支持宽高设置，图片缩放方式设置 |
+| authNavTransparent | 设置授权页导航栏透明                                   |
 
 **授权页背景**
 
@@ -373,51 +389,52 @@ public void setAuthThemeConfig(authThemeConfig authThemeConfig)
 
 **授权页号码栏**
 
-| 方法                | 说明                |
-| ----------------- | ----------------- |
-| numberColor       | 设置手机号码字体颜色        |
-| numberSize        | 设置号码栏字体大小         |
-| numFieldOffsetY   | 设置号码栏相对于标题栏下边缘y偏移 |
-| numFieldOffsetY_B | 设置号码栏相对于底部y偏移     |
+| 方法              | 说明                                |
+| ----------------- | ----------------------------------- |
+| numberColor       | 设置手机号码字体颜色                |
+| numberSize        | 设置号码栏字体大小                  |
+| numFieldOffsetY   | 设置号码栏相对于标题栏下边缘y偏移   |
+| numFieldOffsetY_B | 设置号码栏相对于底部y偏移           |
+| numberOffsetX     | 设置号码栏相对于默认位置的X轴偏移量 |
 
 **授权页登录按钮**
 
-| 方法              | 说明                 |
-| --------------- | ------------------ |
-| logBtnText      | 设置登录按钮文字           |
-| logBtnTextColor | 设置登录按钮文字颜色         |
-| logBtnImgPath   | 设置授权登录按钮图片         |
-| logBtnOffsetY   | 设置登录按钮相对于标题栏下边缘y偏移 |
-| logBtnOffsetY_B | 设置登录按钮相对于底部y偏移     |
+| 方法            | 说明                                     |
+| --------------- | ---------------------------------------- |
+| logBtnText      | 设置登录按钮文本内容、字体颜色、字体大小 |
+| logBtnImgPath   | 设置授权登录按钮图片                     |
+| logBtn          | 设置登录按钮的宽高                       |
+| logBtnMargin    | 设置登录按钮相对于屏幕左右边缘边距       |
+| logBtnOffsetY   | 设置登录按钮相对于标题栏下边缘y偏移      |
+| logBtnOffsetY_B | 设置登录按钮相对于底部y偏移              |
 
 **切换账号**
 
-| 方法                 | 说明                 |
-| ------------------ | ------------------ |
-| switchAccTextColor | 设置切换账号字体颜色         |
-| switchAccHidden    | 隐藏“切换账号”           |
-| switchOffsetY      | 设置切换账号相对于标题栏下边缘y偏移 |
-| switchOffsetY_B    | 设置切换账号相对于底部y偏移     |
+| 方法               | 说明                                     |
+| ------------------ | ---------------------------------------- |
+| switchAccTextColor | 设置切换账号字体颜色、文本内容、字体大小 |
+| switchAccHidden    | 隐藏“切换账号”                           |
+| switchOffsetY      | 设置切换账号相对于标题栏下边缘y偏移      |
+| switchOffsetY_B    | 设置切换账号相对于底部y偏移              |
 
 **授权页隐私栏**
 
-| 方法               | 说明                        |
-| ---------------- | ------------------------- |
-| clauseOne        | 设置开发者隐私条款1名称和URL(名称，url)  |
-| clauseTwo        | 设置开发者隐私条款2名称和URL(名称，url)  |
-| clauseColor      | 设置隐私条款名称颜色(基础文字颜色，协议文字颜色) |
-| uncheckedImgPath | 设置复选框未选中时图片               |
-| checkedImgPath   | 设置复选框选中时图片                |
-| privacyOffsetY   | 设置隐私条款相对于标题栏下边缘y偏移        |
-| privacyOffsetY_B | 设置隐私条款相对于底部y偏移            |
+| 方法             | 说明                                               |
+| ---------------- | -------------------------------------------------- |
+| privacyAlignment | 设置隐私条款的协议文本，自定义条款，自定义条款链接 |
+| privacyText      | 设置隐私条款的字体大小，文本颜色，是否居中         |
+| checkBoxImgPath  | 设置复选框图片                                     |
+| privacyOffsetY   | 设置隐私条款相对于标题栏下边缘y偏移                |
+| privacyOffsetY_B | 设置隐私条款相对于底部y偏移                        |
+| privacyMargin    | 设置隐私条款距离手机左右边缘的边距                 |
 
 **授权页slogan**
 
-| 方法              | 说明                   |
-| --------------- | -------------------- |
-| sloganTextColor | 设置移动slogan文字颜色       |
+| 方法            | 说明                              |
+| --------------- | --------------------------------- |
+| sloganText      | 设置移动slogan文字颜色、字体大小  |
 | sloganOffsetY   | 设置slogan相对于标题栏下边缘y偏移 |
-| sloganOffsetY_B | 设置slogan相对于底部y偏移     |
+| sloganOffsetY_B | 设置slogan相对于底部y偏移         |
 
 **短验页**
 
@@ -433,7 +450,91 @@ public void setAuthThemeConfig(authThemeConfig authThemeConfig)
 | smsCodeBtnTextColor | 设置短验页获取验证码按钮文字颜色 |
 | smsSloganTextColor  | 设置短验页slogan文字颜色  |
 
-### 2.6.3. 开发者自定义控件
+
+
+### 2.6.3. 弹窗模式
+
+通过注册Activity的生命周期的监听，在授权页面打开的时候，获取window，设置window的属性，来设置弹窗模式，代码示例如下：
+
+1.为授权界面的activity设置弹窗theme主题
+
+```java
+      	 <activity
+            android:name="com.sdk.mobile.manager.login.cucc.OauthActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ActivityDialogStyle"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="behind" />
+```
+
+2.设置theme主题的style样式
+
+```java
+<style name="Theme.ActivityDialogStyle" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--背景透明-->
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <!--dialog的整个屏幕的背景是否有遮障层-->
+    <item name="android:backgroundDimEnabled">true</item>
+</style>
+```
+
+3.在Application中注册activity的生命周期
+
+```java
+registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+   @SuppressLint("ResourceType")
+   @Override
+   public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+   }
+
+   @Override
+   public void onActivityStarted(Activity activity) {
+
+   }
+
+   @Override
+   public void onActivityResumed(Activity activity) {
+      if (activity.getClass().getName().contains("LoginAuthActivity")) {
+         //隐藏标题栏
+         activity.findViewById(0x1111).setVisibility(View.GONE);
+
+         DisplayMetrics dm = new DisplayMetrics();
+         activity.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
+         WindowManager.LayoutParams p = activity.getWindow().getAttributes();
+         //设置window大小
+         p.height = (int) (dm.heightPixels * 0.4);
+         p.width = (int) (dm.widthPixels);
+         //设置window位置
+         p.gravity = Gravity.BOTTOM;
+         activity.getWindow().setAttributes(p);
+      }
+
+   }
+
+   @Override
+   public void onActivityPaused(Activity activity) {
+
+   }
+
+   @Override
+   public void onActivityStopped(Activity activity) {
+
+   }
+
+   @Override
+   public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+   }
+
+   @Override
+   public void onActivityDestroyed(Activity activity) {
+
+   }
+});
+```
+
+### 2.6.4. 开发者自定义控件
 
 授权页面允许开发者在授权页面titlebar和body添加自定义的控件
 
@@ -506,7 +607,7 @@ mAuthnHelper.addAuthRegistViewConfig("layout_third_login", new AuthRegisterViewC
 ```
 **获取token成功之后，需把通过setView()注入进去的view置为null。**
 
-### 2.6.4. finish授权页
+### 2.6.5. finish授权页
 
 SDK完成回调后，**不会立即关闭授权页面**，需要开发者主动调用离开授权页面方法去完成页面的关闭
 
@@ -518,7 +619,7 @@ public void quitAuthActivity(){}
 
 
 
-### 2.6.5. finish短验页
+### 2.6.6. finish短验页
 
 SDK完成回调后，不会立即关闭短验页面，需要开发者主动调用离开授权页面方法去完成页面的关闭
 
@@ -708,6 +809,7 @@ public void delScrip()
 | 200072 | CA根证书校验失败                                             |
 | 200080 | 本机号码校验仅支持移动手机号                                 |
 | 200082 | 服务器繁忙                                                   |
+| 200087 | 授权页成功调起                                               |
 
 # 6.常见问题
 
