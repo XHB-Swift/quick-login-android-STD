@@ -321,7 +321,9 @@ mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener);
 
 ### 2.6.1. 页面规范细则
 
-![](image/authUI.png)
+![](image/authUI1.png)
+
+![](image/authUI2.png)
 
 ![](image/SMSPage.png)
 
