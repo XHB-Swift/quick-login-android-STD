@@ -436,7 +436,7 @@ public void setAuthThemeConfig(authThemeConfig authThemeConfig)
 
 | 方法            | 说明                              |
 | --------------- | --------------------------------- |
-| sloganText      | 设置移动slogan文字颜色、字体大小  |
+| sloganText      | 设置移动slogan字体大小、文字颜色  |
 | sloganOffsetY   | 设置slogan相对于标题栏下边缘y偏移 |
 | sloganOffsetY_B | 设置slogan相对于底部y偏移         |
 
