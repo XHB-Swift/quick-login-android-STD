@@ -4,7 +4,7 @@
 
 sdk技术问题沟通QQ群：609994083</br>
 sdk支持版本：Android4.0以上</br>
-本文档为一键登录SDK5.6.6版本的开发文档</br>
+本文档为一键登录SDK5.6.6.1版本的开发文档</br>
 
 **注意事项：**
 
@@ -50,11 +50,18 @@ aar包集成方式：
 
 ```java
 <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 ```
+
+建议的权限：
+
+```java
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+```
+
+**强烈建议开发者申请本权限，本权限主要用于在双卡情况下，更精准的获取数据流量卡的运营商类型，缺少该权限，存在取号失败概率上升的风险。**
 
 权限说明：
 
