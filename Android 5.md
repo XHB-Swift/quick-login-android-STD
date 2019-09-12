@@ -620,7 +620,7 @@ mAuthnHelper.addAuthRegistViewConfig("layout_third_login", new AuthRegisterViewC
 
 ### 2.6.5. finish授权页
 
-SDK完成回调后，**不会立即关闭授权页面**，需要开发者主动调用离开授权页面方法去完成页面的关闭
+SDK完成回调后，**不会立即关闭授权页面**，需要开发者主动调用离开授权页面方法去完成页面的关闭。注意，因为此方法做了view的移除操作，此方法必须在主线程中调用。
 
 方法原型
 
