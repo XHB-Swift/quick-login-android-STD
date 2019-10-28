@@ -130,7 +130,7 @@ public void onCreate(Bundle savedInstanceState) {
 ```java
 mListener = new TokenListener() {
     @Override
-    public void onGetTokenComplete(JSONObject jObj) {
+    public void onGetTokenComplete(int SDKRequestCode， JSONObject jObj) {
         if (jObj != null) {
             mResultString = jObj.toString();
             mHandler.sendEmptyMessage(RESULT);
