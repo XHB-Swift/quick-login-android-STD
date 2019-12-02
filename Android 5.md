@@ -763,7 +763,7 @@ public JSONObject getNetworkType(Context context)
 | 参数           | 类型     | 说明                                       |
 | ------------ | ------ | ---------------------------------------- |
 | operatorType | String | 运营商类型：</br>1.移动流量；</br>2.联通流量；</br>3.电信流量 |
-| networkType  | String | 网络类型：</br>0.未知；</br>1.流量；</br>2.wifi；</br>3.数据流量+wifi |
+| networkType  | int | 网络类型：</br>0.未知；</br>1.流量；</br>2.wifi；</br>3.数据流量+wifi |
 
 ## 4.2. 删除临时取号凭证
 
