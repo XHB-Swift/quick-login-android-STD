@@ -4,7 +4,7 @@
 
 sdk技术问题沟通QQ群：609994083</br>
 sdk支持版本：Android4.0以上</br>
-本文档为一键登录SDK5.6.6.1版本的开发文档</br>
+本文档为一键登录SDK5.6.7版本的开发文档</br>
 
 **注意事项：**
 
@@ -173,6 +173,8 @@ mListener = new TokenListener() {
 
 本方法用于发起取号请求，SDK完成网络判断、蜂窝数据网络切换等操作并缓存凭证scrip。<font color="red">缓存允许用户在未开启蜂窝网络时成功取号。</font>
 
+取号接口使用http请求，开发者需按照安卓网络安全配置适配。
+
 **取号方法原型：**
 
 ```java
@@ -197,11 +199,14 @@ public void getPhoneInfo(final String appId,
 
 OnGetTokenComplete的参数JSONObject，含义如下：
 
-| 字段             | 类型      | 含义                                       |
-| -------------- | ------- | ---------------------------------------- |
-| resultCode     | int     | 接口返回码，“103000”为成功。具体返回码见5.1 SDK返回码       |
-| desc           | boolean | 成功标识，true为成功。                            |
+| 字段           | 类型    | 含义                                                         |
+| -------------- | ------- | ------------------------------------------------------------ |
+| resultCode     | int     | 接口返回码，“103000”为成功。具体返回码见5.1 SDK返回码        |
+| desc           | boolean | 成功标识，true为成功。                                       |
 | SDKRequestCode | int     | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
+| traceID        | string  | 主要用于定位问题                                             |
+
+
 
 **示例代码：**
 
@@ -278,14 +283,15 @@ public void loginAuth(final String appId,
 
 OnGetTokenComplete的参数JSONObject，含义如下：
 
-| 字段             | 类型     | 含义                                       |
-| -------------- | ------ | ---------------------------------------- |
-| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码       |
-| resultDesc     | String | 失败时返回：返回错误码说明                            |
+| 字段           | 类型   | 含义                                                         |
+| -------------- | ------ | ------------------------------------------------------------ |
+| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
+| resultDesc     | String | 失败时返回：返回错误码说明                                   |
 | authType       | String | 认证类型：</br>0:其他；</br>1:WiFi下网关鉴权；</br>2:网关鉴权；</br>3:短信上行鉴权；</br>7:短信验证码登录 |
-| authTypeDec    | String | 认证类型描述，对应authType                        |
+| authTypeDec    | String | 认证类型描述，对应authType                                   |
 | token          | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 | SDKRequestCode | int    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
+| traceID        | string | 主要用于定位问题                                             |
 
 **示例代码**
 
@@ -353,113 +359,113 @@ mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener);
 **方法原型：**
 
 ```java
-public void setAuthThemeConfig(authThemeConfig authThemeConfig)
+public void setAuthThemeConfig(AuthThemeConfig authThemeConfig)
 ```
 
 **参数说明**
 
-| 参数              | 类型              | 说明                                       |
-| :-------------- | :-------------- | :--------------------------------------- |
-| authThemeConfig | authThemeConfig | 主题配置对象，开发者在authThemeConfig.java类中调用对应的方法配置授权页中对应的元素 |
+| 参数            | 类型            | 说明                                                         |
+| :-------------- | :-------------- | :----------------------------------------------------------- |
+| AuthThemeConfig | authThemeConfig | 主题配置对象，由AuthThemeConfig.Builder().build()创建，开发者通过对builder中调用对应的方法配置授权页中对应的元素 |
 
-**authThemeConfig.java配置元素说明：**
+**AuthThemeConfig.java配置元素说明：**
 
 **状态栏**
 
-| 方法      | 说明                                                         |
-| --------- | ------------------------------------------------------------ |
-| statusBar | 设置状态栏颜色（系统版本5.0以上可设置）、字体颜色（系统版本6.0以上可设置黑色、白色）。 |
+| 方法         | 说明                                                         |
+| ------------ | ------------------------------------------------------------ |
+| setStatusBar | 设置状态栏颜色（系统版本5.0以上可设置）、字体颜色（系统版本6.0以上可设置黑色、白色）。 |
 
 **授权页导航栏**
 
-| 方法               | 说明                                                   |
-| ------------------ | ------------------------------------------------------ |
-| navColor           | 设置导航栏颜色                                         |
-| navText            | 设置导航栏标题文字、字体大小、颜色                     |
-| navReturnImgPath   | 设置导航栏返回按钮图标，支持宽高设置，图片缩放方式设置 |
-| authNavTransparent | 设置授权页导航栏透明                                   |
+| 方法                  | 说明                                                   |
+| --------------------- | ------------------------------------------------------ |
+| setNavColor           | 设置导航栏颜色                                         |
+| setNavText            | 设置导航栏标题文字、字体大小、颜色                     |
+| setNavReturnImgPath   | 设置导航栏返回按钮图标，支持宽高设置，图片缩放方式设置 |
+| setAuthNavTransparent | 设置授权页导航栏透明                                   |
 
 **授权页背景**
 
-| 方法            | 说明        |
-| ------------- | --------- |
-| authBGImgPath | 设置授权页背景图片 |
+| 方法             | 说明               |
+| ---------------- | ------------------ |
+| setAuthBGImgPath | 设置授权页背景图片 |
 
 
 
 **授权页logo**
 
-| 方法          | 说明                                  |
-| ------------- | ------------------------------------- |
-| logoImgPath   | 设置logo图片                          |
-| logoWidthDip  | 设置logo宽度                          |
-| logoHeightDip | 设置logo高度                          |
-| logoHidden    | 隐藏logo                              |
-| logoOffsetY   | 设置logo相对于状态栏下边缘y偏移（DP） |
-| logoOffsetY_B | 设置logo相对于底部y偏移               |
+| 方法             | 说明                                  |
+| ---------------- | ------------------------------------- |
+| setLogoImgPath   | 设置logo图片                          |
+| setLogoWidthDip  | 设置logo宽度                          |
+| setLogoHeightDip | 设置logo高度                          |
+| setLogoHidden    | 隐藏logo                              |
+| setLogoOffsetY   | 设置logo相对于状态栏下边缘y偏移（DP） |
+| setLogoOffsetY_B | 设置logo相对于底部y偏移               |
 
 **授权页号码栏**
 
-| 方法              | 说明                                |
-| ----------------- | ----------------------------------- |
-| numberColor       | 设置手机号码字体颜色                |
-| numberSize        | 设置号码栏字体大小                  |
-| numFieldOffsetY   | 设置号码栏相对于标题栏下边缘y偏移   |
-| numFieldOffsetY_B | 设置号码栏相对于底部y偏移           |
-| numberOffsetX     | 设置号码栏相对于默认位置的X轴偏移量 |
+| 方法                 | 说明                                |
+| -------------------- | ----------------------------------- |
+| setNumberColor       | 设置手机号码字体颜色                |
+| setNumberSize        | 设置号码栏字体大小                  |
+| setNumFieldOffsetY   | 设置号码栏相对于标题栏下边缘y偏移   |
+| setNumFieldOffsetY_B | 设置号码栏相对于底部y偏移           |
+| setNumberOffsetX     | 设置号码栏相对于默认位置的X轴偏移量 |
 
 **授权页登录按钮**
 
-| 方法            | 说明                                     |
-| --------------- | ---------------------------------------- |
-| logBtnText      | 设置登录按钮文本内容、字体颜色、字体大小 |
-| logBtnImgPath   | 设置授权登录按钮图片                     |
-| logBtn          | 设置登录按钮的宽高                       |
-| logBtnMargin    | 设置登录按钮相对于屏幕左右边缘边距       |
-| logBtnOffsetY   | 设置登录按钮相对于标题栏下边缘y偏移      |
-| logBtnOffsetY_B | 设置登录按钮相对于底部y偏移              |
+| 方法               | 说明                                     |
+| ------------------ | ---------------------------------------- |
+| setLogBtnText      | 设置登录按钮文本内容、字体颜色、字体大小 |
+| setLogBtnImgPath   | 设置授权登录按钮图片                     |
+| setLogBtn          | 设置登录按钮的宽高                       |
+| setLogBtnMargin    | 设置登录按钮相对于屏幕左右边缘边距       |
+| setLogBtnOffsetY   | 设置登录按钮相对于标题栏下边缘y偏移      |
+| setLogBtnOffsetY_B | 设置登录按钮相对于底部y偏移              |
 
 **切换账号**
 
-| 方法               | 说明                                     |
-| ------------------ | ---------------------------------------- |
-| switchAccTextColor | 设置切换账号字体颜色、文本内容、字体大小 |
-| switchAccHidden    | 隐藏“切换账号”                           |
-| switchOffsetY      | 设置切换账号相对于标题栏下边缘y偏移      |
-| switchOffsetY_B    | 设置切换账号相对于底部y偏移              |
+| 方法                  | 说明                                     |
+| --------------------- | ---------------------------------------- |
+| setSwitchAccTextColor | 设置切换账号字体颜色、文本内容、字体大小 |
+| setSwitchAccHidden    | 隐藏“切换账号”                           |
+| setSwitchOffsetY      | 设置切换账号相对于标题栏下边缘y偏移      |
+| setSwitchOffsetY_B    | 设置切换账号相对于底部y偏移              |
 
 **授权页隐私栏**
 
-| 方法             | 说明                                               |
-| ---------------- | -------------------------------------------------- |
-| privacyAlignment | 设置隐私条款的协议文本，自定义条款，自定义条款链接 |
-| privacyText      | 设置隐私条款的字体大小，文本颜色，是否居中         |
-| checkBoxImgPath  | 设置复选框图片                                     |
-| privacyOffsetY   | 设置隐私条款相对于标题栏下边缘y偏移                |
-| privacyOffsetY_B | 设置隐私条款相对于底部y偏移                        |
-| privacyMargin    | 设置隐私条款距离手机左右边缘的边距                 |
+| 方法                 | 说明                                               |
+| -------------------- | -------------------------------------------------- |
+| setPprivacyAlignment | 设置隐私条款的协议文本，自定义条款，自定义条款链接 |
+| setPrivacyText       | 设置隐私条款的字体大小，文本颜色，是否居中         |
+| setCheckBoxImgPath   | 设置复选框图片                                     |
+| setPrivacyOffsetY    | 设置隐私条款相对于标题栏下边缘y偏移                |
+| setPrivacyOffsetY_B  | 设置隐私条款相对于底部y偏移                        |
+| setPrivacyMargin     | 设置隐私条款距离手机左右边缘的边距                 |
 
 **授权页slogan**
 
-| 方法            | 说明                              |
-| --------------- | --------------------------------- |
-| sloganText      | 设置移动slogan字体大小、文字颜色  |
-| sloganOffsetY   | 设置slogan相对于标题栏下边缘y偏移 |
-| sloganOffsetY_B | 设置slogan相对于底部y偏移         |
+| 方法               | 说明                              |
+| ------------------ | --------------------------------- |
+| setSloganText      | 设置移动slogan字体大小、文字颜色  |
+| setSloganOffsetY   | 设置slogan相对于标题栏下边缘y偏移 |
+| setSloganOffsetY_B | 设置slogan相对于底部y偏移         |
 
 **短验页**
 
-| 方法                  | 说明               |
-| ------------------- | ---------------- |
-| smsNavTransparent   | 设置短验页导航栏隐藏       |
-| smsNavText          | 设置短验页的导航栏标题文字    |
-| smsLogBtnText       | 设置短验页的登录按钮文字     |
-| smsLogBtnImgPath    | 设置短验登录按钮图片       |
-| smsLogBtnTextColor  | 设置短验页的按钮文字颜色     |
-| smsBGImgPath        | 设置短验页背景图片        |
-| smsCodeImgPath      | 设置短验页获取验证码按钮背景图片 |
-| smsCodeBtnTextColor | 设置短验页获取验证码按钮文字颜色 |
-| smsSloganTextColor  | 设置短验页slogan文字颜色  |
+| 方法                   | 说明                             |
+| ---------------------- | -------------------------------- |
+| setSmsNavTransparent   | 设置短验页导航栏隐藏             |
+| setSmsNavText          | 设置短验页的导航栏标题文字       |
+| setSmsLogBtnText       | 设置短验页的登录按钮文字         |
+| setSmsLogBtnImgPath    | 设置短验登录按钮图片             |
+| setSmsLogBtnTextColor  | 设置短验页的按钮文字颜色         |
+| setSmsBGImgPath        | 设置短验页背景图片               |
+| setSmsCodeImgPath      | 设置短验页获取验证码按钮背景图片 |
+| setSmsCodeBtnTextColor | 设置短验页获取验证码按钮文字颜色 |
+| setSmsSloganTextColor  | 设置短验页slogan文字颜色         |
 
 
 
@@ -697,13 +703,14 @@ public void mobileAuth(final String appId,
 
 OnGetTokenComplete的参数JSONObject，含义如下：
 
-| 字段             | 类型     | 含义                                       |
-| -------------- | ------ | ---------------------------------------- |
-| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码       |
-| authType       | Int    | 登录类型。                                    |
-| authTypeDes    | String | 登录类型中文描述。                                |
+| 字段           | 类型   | 含义                                                         |
+| -------------- | ------ | ------------------------------------------------------------ |
+| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
+| authType       | Int    | 登录类型。                                                   |
+| authTypeDes    | String | 登录类型中文描述。                                           |
 | token          | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 | SDKRequestCode | int    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
+| traceID        | string | 主要用于定位问题                                             |
 
 **示例代码:**
 
@@ -763,7 +770,7 @@ public JSONObject getNetworkType(Context context)
 | 参数           | 类型     | 说明                                       |
 | ------------ | ------ | ---------------------------------------- |
 | operatorType | String | 运营商类型：</br>1.移动流量；</br>2.联通流量；</br>3.电信流量 |
-| networkType  | int | 网络类型：</br>0.未知；</br>1.流量；</br>2.wifi；</br>3.数据流量+wifi |
+| networkType  | String | 网络类型：</br>0.未知；</br>1.流量；</br>2.wifi；</br>3.数据流量+wifi |
 
 ## 4.2. 删除临时取号凭证
 
@@ -774,6 +781,28 @@ public JSONObject getNetworkType(Context context)
 ```java
 public void delScrip()
 ```
+
+## 4.3.设置取号超时
+
+设置取号超时时间，默认为8000毫秒。
+
+开发者设置取号请求方法（getPhoneInfo）、授权请求方法（loginAuth），本机号码校验请求token方法（mobileAuth）的超时时间。开发者在使用SDK方法前，可以通过本方法设置将要使用的方法的超时时间。
+
+**原型**
+
+```java
+public void setOverTime(long overTime)
+```
+
+**请求参数**
+
+| 参数     | 类型 | 说明                       |
+| -------- | ---- | -------------------------- |
+| overTime | long | 设置超时时间（单位：毫秒） |
+
+**响应参数**
+
+无
 
 
 
@@ -844,15 +873,13 @@ public void delScrip()
    - 一键登录有授权页面，开发者经用户授权后可获得号码，适用于注册/登录场景；本机号码校验不返回号码，仅返回待校验号码是否本机的校验结果，适用于所有基于手机号码进行风控的场景。
 2. 一键登录支持哪些运营商？
    - 一键登录目前仅支持移动、电信手机号码
-3. 移动认证是否支持小程序和H5？
-   - 暂不支持
-4. 移动认证对于携号转网的号码，是否还能使用？
-   - 移动认证SD不提供判断用户是否为携号转网的Api，但提供判断用户当前流量卡运营商的方法。即携号转网的用户仍然能够使用移动认证
-5. 移动认证的原理？
+3. 移动认证对于携号转网的号码，是否还能使用？
+   - 携转后，在原运营商的注册会取消，需要用有用户转入的运营商取号能力的SDK取号；目前移动认证的SDK支持移动和电信取号，因此当用户转入的运营商为移动或电信时可继续使用
+4. 移动认证的原理？
    - 通过运营商数据网关获取当前流量卡的号码
-6. 一键登录是否支持多语言？
+5. 一键登录是否支持多语言？
    - 暂不支持
-7. 一键登录是否具备用户取号频次限制？
+6. 一键登录是否具备用户取号频次限制？
    - 对获取token的频次有限制，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个
 
 能力申请
@@ -877,11 +904,11 @@ SDK使用问题：
 3. 一键登录sdk的短信验证页能不能单独调用？
    - 不能，短信验证码仅作为网关取号失败后的补充
 4. 用户点击授权后，授权页会自动关闭吗？
-   - 不能，需要开发者调用一下dissmiss，详情见【finish授权页】章节
+   - 不能，需要开发者自行调用关闭，详见文档相关章节
 5. 同一个token可以多次获取手机号码吗？
    - token是单次有效的，一个token最多只能获取一次手机号。
 6. 如何判断调用方法是否成功？
-   - 方法调用后SDK会给出返回码，103000为成功，其余为调用失败。建议应用捕捉这些返回码，可用于日常数据分析。
+   - 方法调用后SDK会给出返回码，103000为成功，建议应用捕捉这些返回码，可用于日常数据分析。
 
 
 
