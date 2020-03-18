@@ -160,7 +160,7 @@ mListener = new TokenListener() {
 
 ## 2.2. 使用流程说明
 
-![](C:\Users\lenovo\Desktop\【品质管理文档】\安卓\quick-login-android-STD-master\quick-login-android-STD-master\image\login.png)
+![](https://github.com/CMCC-MobileAuth/quick-login-android-STD/blob/master/image/login.png?raw=true)
 
 ## 2.3. 取号请求
 
@@ -301,7 +301,7 @@ mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener);
 
 
 
-![微信图片_20191230145845](C:\Users\lenovo\Desktop\【品质管理文档】\安卓\微信图片_20191230145845.png)
+![](https://github.com/CMCC-MobileAuth/quick-login-android-STD/blob/master/image/5.7UI.png?raw=true)
 
 **注意：**
 
@@ -441,8 +441,7 @@ public void quitAuthActivity(){}
 
 ## 3.2. 使用流程说明
 
-![](C:\Users\lenovo\Desktop\【品质管理文档】\安卓\quick-login-android-STD-master\quick-login-android-STD-master\image\mobile_auth.png)
-
+![](https://github.com/CMCC-MobileAuth/quick-login-android-STD/blob/master/image/mobile_auth.png?raw=true)
 ## 3.3. 取号请求
 
 详情可参考一键登录的取号请求说明（2.3章）
