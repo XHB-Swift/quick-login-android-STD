@@ -405,6 +405,10 @@ public void setAuthThemeConfig(AuthThemeConfig authThemeConfig)
 | setWindowBottom         | 设置授权页是否居于底部，0=居中；1=底部，设置为1Y轴的偏移失效 |
 | setThemeId              | 设置授权页弹窗主题，也可在Manifest设置                       |
 
+**返回键监听**
+| 方法                    | 说明                                                         |
+| ----------------------- | ------------------------------------------------------------ |
+| setBackPressedListener   | 设置授权页返回键监听事件                                       |
 
 
 ### 2.5.3. finish授权页
