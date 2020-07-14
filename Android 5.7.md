@@ -159,7 +159,7 @@ mListener = new TokenListener() {
 
 ## 2.2. 使用流程说明
 
-![](https://github.com/CMCC-MobileAuth/quick-login-android-STD/blob/master/image/login.png?raw=true)
+![login](image/login.png)
 
 ## 2.3. 取号请求
 
@@ -298,9 +298,8 @@ mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener);
 
 ### 2.5.1. 页面规范细则
 
+![UI](image/5.7UI.png)
 
-
-![](https://github.com/CMCC-MobileAuth/quick-login-android-STD/blob/master/image/5.7UI.png?raw=true)
 
 **注意：**
 
@@ -443,7 +442,8 @@ public void quitAuthActivity(){}
 
 ## 3.2. 使用流程说明
 
-![](https://github.com/CMCC-MobileAuth/quick-login-android-STD/blob/master/image/mobile_auth.png?raw=true)
+![mobile_auth](image/mobile_auth.png)
+
 ## 3.3. 取号请求
 
 详情可参考一键登录的取号请求说明（2.3章）
