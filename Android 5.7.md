@@ -340,8 +340,9 @@ public void setAuthThemeConfig(AuthThemeConfig authThemeConfig)
 | 方法                 | 说明                           |
 | -------------------- | ------------------------------ |
 | setNavTextColor      | 设置服务条款标题字体颜色       |
+| setNavColor      | 设置服务条款标题颜色       |
 | setNavTextSize       | 设置服务条款标题字体大小       |
-| setClauseLayoutResID | 设置服务条款标题布局资源文件ID |
+| setClauseLayoutResID | 设置服务条款标题布局资源文件ID（包括返回按钮） |
 
 **授权页布局**
 
