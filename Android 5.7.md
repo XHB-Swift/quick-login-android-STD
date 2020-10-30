@@ -382,6 +382,7 @@ public void setAuthThemeConfig(AuthThemeConfig authThemeConfig)
 | setPrivacyAlignment | 设置隐私条款的协议文本，自定义条款，自定义条款链接 |
 | setPrivacyText      | 设置隐私条款的字体大小，文本颜色，是否居中         |
 | setCheckBoxImgPath  | 设置复选框图片                                     |
+| setCheckTipText  | 设置未勾选提示的自定义提示文案。不设置则无提示                          |
 | setPrivacyOffsetY   | 设置隐私条款相对于标题栏下边缘y偏移                |
 | setPrivacyOffsetY_B | 设置隐私条款相对于底部y偏移                        |
 | setPrivacyMargin    | 设置隐私条款距离手机左右边缘的边距                 |
