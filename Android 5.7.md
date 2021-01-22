@@ -40,6 +40,7 @@ aar包集成方式：
 
 1. 在Eclipse/AS中建立你的工程。 
 2. 将`*.aar`拷贝到工程的libs目录下，如没有该目录，可新建。
+3. 在app的build.gradle文件添加implementation(name:'CMCCSSOSDK-release',ext:'aar')
 
 **第三步：开始使用移动认证SDK**
 
@@ -144,7 +145,6 @@ mListener = new TokenListener() {
 ```
 
 <div STYLE="page-break-after: always;"></div>
-
 # 2. 一键登录功能
 
 ## 2.1. 准备工作
@@ -166,6 +166,25 @@ mListener = new TokenListener() {
 本方法用于发起取号请求，SDK完成网络判断、蜂窝数据网络切换等操作并缓存凭证scrip。<font color="red">缓存允许用户在未开启蜂窝网络时成功取号。</font>
 
 取号接口使用http请求，开发者需按照安卓网络安全配置适配。
+
+Android P及以上可降低targetSdkVersion版本，或在res的xml目录下，新建一个xml文件(名称自定义,如：network_security_config.xml)
+
+```java
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>    
+	<base-config cleartextTrafficPermitted="true" />
+</network-security-config>
+```
+
+并在manifest清单文件配置
+
+```java
+<application
+	...
+    android:networkSecurityConfig="@xml/network_security_config"
+    ...    
+/>
+```
 
 **取号方法原型：**
 
@@ -220,7 +239,7 @@ mListener = new TokenListener() {
 };
 
 //调用取号方法
-mAuthnHelper.getPhoneInfo(Constant.APP_ID, Constant.APP_KEY, 8000, mListener);
+mAuthnHelper.getPhoneInfo(Constant.APP_ID, Constant.APP_KEY, mListener，requestCode);
 ```
 
 
@@ -281,7 +300,7 @@ mListener = new TokenListener() {
 };
 
 //调用一键登录方法
-mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener);
+mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener，requestCode);
 ```
 
 **授权页面的回调方法**
