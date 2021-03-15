@@ -212,9 +212,8 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | 字段           | 类型    | 含义                                                         |
 | -------------- | ------- | ------------------------------------------------------------ |
 | resultCode     | String     | 接口返回码，“103000”为成功。具体返回码见5.1 SDK返回码        |
-| desc/resultString/resultDesc           | boolean | 成功标识，true为成功。                                       |
-| SDKRequestCode | String     | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
-| traceID         | String  | 主要用于定位问题                                             |
+| desc/resultString/resultDesc           | String | 成功标识，true为成功。                                       |
+| traceId        | String  | 主要用于定位问题                                             |
 
 **示例代码：**
 
@@ -276,10 +275,9 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | resultCode     | String    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
 |  desc/resultString/resultDesc         | String | 失败时返回：返回错误码说明                                   |
 | authType       | String | 认证类型：</br>0:其他；</br>1:WiFi下网关鉴权；</br>2:网关鉴权； |
-| authTypeDec    | String | 认证类型描述，对应authType                                   |
+| authTypeDes | String | 认证类型描述，对应authType                                   |
 | token          | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| SDKRequestCode | String    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
-| raceID         | string | 主要用于定位问题                                             |
+| traceId | string | 主要用于定位问题                                             |
 
 **示例代码**
 
@@ -310,6 +308,19 @@ mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener，requestCod
 | -------------- | ---------------------------- |
 | pageInListener | 可以获得授权页面是否成功回调 |
 
+**示例代码**
+
+```java
+mAuthnHelper.setPageInListener(new LoginPageInListener() {
+            @Override
+            public void onLoginPageInComplete(String resultCode, JSONObject jsonObj) {
+                if(resultCode.equals("200087")){
+                    Log.d("initSDK","page in---------------");
+                }
+            }
+        });
+```
+
 
 
 ## 2.5. 授权页面设计
@@ -319,7 +330,6 @@ mAuthnHelper.loginAuth(Constant.APP_ID, Constant.APP_KEY, mListener，requestCod
 ### 2.5.1. 页面规范细则
 
 ![UI](image/5.7UI.png)
-
 
 **注意：**
 
@@ -522,8 +532,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | authType       | String    | 登录类型。                                                   |
 | authTypeDes    | String | 登录类型中文描述。                                           |
 | token          | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| SDKRequestCode | String    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
-| traceID        | String | 主要用于定位问题                                             |
+| traceId       | String | 主要用于定位问题                                             |
 
 **示例代码:**
 
