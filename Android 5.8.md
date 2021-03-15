@@ -203,7 +203,7 @@ public void getPhoneInfo(final String appId,
 | appId       | String        | 应用的AppID                                                  |
 | appkey      | String        | 应用密钥                                                     |
 | listener    | TokenListener | TokenListener为回调监听器，是一个java接口，需要调用者自己实现；TokenListener是接口中的认证登录token回调接口，OnGetTokenComplete是该接口中唯一的抽象方法，即void OnGetTokenComplete(JSONObject  jsonobj) |
-| requestCode | int           | 请求标识码。与响应参数中的SDKRequestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
+| requestCode | String           | 请求标识码。与响应参数中的SDKRequestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
 **响应参数**
 
@@ -211,10 +211,10 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 
 | 字段           | 类型    | 含义                                                         |
 | -------------- | ------- | ------------------------------------------------------------ |
-| resultCode     | int     | 接口返回码，“103000”为成功。具体返回码见5.1 SDK返回码        |
+| resultCode     | String     | 接口返回码，“103000”为成功。具体返回码见5.1 SDK返回码        |
 | desc/resultString/resultDesc           | boolean | 成功标识，true为成功。                                       |
-| SDKRequestCode | int     | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
-| raceID         | string  | 主要用于定位问题                                             |
+| SDKRequestCode | String     | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
+| traceID         | String  | 主要用于定位问题                                             |
 
 **示例代码：**
 
@@ -265,7 +265,7 @@ public void loginAuth(final String appId,
 | appId       | String        | 应用的AppID                                 |
 | appkey      | String        | 应用密钥                                     |
 | listener    | TokenListener | TokenListener为回调监听器，是一个java接口，需要调用者自己实现；TokenListener是接口中的认证登录token回调接口，OnGetTokenComplete是该接口中唯一的抽象方法，即void OnGetTokenComplete(JSONObject  jsonobj) |
-| requestCode | int           | 请求标识码。与响应参数中的SDKRequestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
+| requestCode | String           | 请求标识码。与响应参数中的SDKRequestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
 **响应参数**
 
@@ -273,12 +273,12 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 
 | 字段           | 类型   | 含义                                                         |
 | -------------- | ------ | ------------------------------------------------------------ |
-| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
+| resultCode     | String    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
 |  desc/resultString/resultDesc         | String | 失败时返回：返回错误码说明                                   |
 | authType       | String | 认证类型：</br>0:其他；</br>1:WiFi下网关鉴权；</br>2:网关鉴权； |
 | authTypeDec    | String | 认证类型描述，对应authType                                   |
 | token          | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| SDKRequestCode | int    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
+| SDKRequestCode | String    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 | raceID         | string | 主要用于定位问题                                             |
 
 **示例代码**
@@ -510,7 +510,7 @@ public void mobileAuth(final String appId,
 | appId       | String        | 应用的AppID                                 |
 | appkey      | String        | 应用密钥                                     |
 | listener    | TokenListener | TokenListener为回调监听器，是一个java接口，需要调用者自己实现；TokenListener是接口中的认证登录token回调接口，OnGetTokenComplete是该接口中唯一的抽象方法，即void OnGetTokenComplete(JSONObject  jsonobj) |
-| requestCode | int           | 请求标识码。与响应参数中的SDKRequestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
+| requestCode | String           | 请求标识码。与响应参数中的SDKRequestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 
 **响应参数：**
 
@@ -518,11 +518,11 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 
 | 字段           | 类型   | 含义                                                         |
 | -------------- | ------ | ------------------------------------------------------------ |
-| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
-| authType       | Int    | 登录类型。                                                   |
+| resultCode     | String    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
+| authType       | String    | 登录类型。                                                   |
 | authTypeDes    | String | 登录类型中文描述。                                           |
 | token          | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| SDKRequestCode | int    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
+| SDKRequestCode | String    | 响应标识码。与请求参数中的requestCode呼应，SDKRequestCode=用户传的requestCode，如果开发者没有传requestCode，那么SDKRequestCode=-1 |
 | traceID        | String | 主要用于定位问题                                             |
 
 **示例代码:**
